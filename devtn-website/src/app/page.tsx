@@ -46,30 +46,55 @@ const aiAgents = [
     title: "Agent Intelligence",
     autonomy: "95%",
     role: "Analyse complète du prospect: secteur, concurrence, stack actuelle, budget estimatif et style de communication.",
+    tasks: [
+      "Recherche l'entreprise et ses concurrents en moins de 10 minutes.",
+      "Identifie les besoins technologiques prioritaires.",
+      "Produit un brief de positionnement commercial prêt à utiliser.",
+    ],
   },
   {
     code: "الحارس",
     title: "Agent Qualification",
     autonomy: "98%",
     role: "Qualification automatique des leads entrants (formulaire, WhatsApp, messages) avec scoring 0-100.",
+    tasks: [
+      "Pose les questions clés: budget, délai, décideur, urgence.",
+      "Calcule un score de qualification du lead.",
+      "Planifie un rendez-vous si le score dépasse le seuil cible.",
+    ],
   },
   {
     code: "الصياد",
     title: "Agent Outreach",
     autonomy: "90%",
     role: "Campagnes sortantes personnalisées, relances intelligentes et apprentissage basé sur les réponses.",
+    tasks: [
+      "Lance les campagnes email de prospection ciblées.",
+      "Envoie des relances automatiques selon le comportement du prospect.",
+      "Ajuste les messages pour améliorer le taux de réponse.",
+    ],
   },
   {
     code: "المفاوض",
     title: "Agent Closer",
     autonomy: "85%",
     role: "Préparation d'offres sur mesure, réponses aux objections et négociation des opportunités sérieuses.",
+    tasks: [
+      "Génère une proposition commerciale personnalisée.",
+      "Répond aux objections prix/délai/valeur de manière structurée.",
+      "Propose une alternative (phase 1, MVP, paiement échelonné).",
+    ],
   },
   {
     code: "الحاضن",
     title: "Agent Customer Success",
     autonomy: "95%",
     role: "Suivi post-livraison, fidélisation, upsell et détection proactive des risques de churn.",
+    tasks: [
+      "Suit l'utilisation des livrables après mise en production.",
+      "Détecte les signaux de risque et déclenche une action proactive.",
+      "Propose des upsells pertinents quand la valeur client augmente.",
+    ],
   },
 ];
 
@@ -187,6 +212,11 @@ export default function Home() {
                 </div>
                 <p className="mt-1 text-sm text-slate-400">Nom codé: {agent.code}</p>
                 <p className="mt-3 text-sm text-slate-300">{agent.role}</p>
+                <ul className="mt-3 list-disc space-y-1 pl-5 text-xs text-slate-300">
+                  {agent.tasks.map((task: string) => (
+                    <li key={task}>{task}</li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>
