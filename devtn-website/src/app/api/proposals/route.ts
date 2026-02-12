@@ -11,6 +11,11 @@ type Proposal = {
   createdAt: string;
 };
 
+export async function GET() {
+  const proposals = await readJsonFile<Proposal[]>("proposals.json", []);
+  return NextResponse.json({ ok: true, proposals });
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();

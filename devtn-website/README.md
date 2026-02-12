@@ -25,6 +25,10 @@ Ce projet supporte **Groq** (tier gratuit) pour éviter les coûts.
 ```env
 GROQ_API_KEY=ta_cle_api
 GROQ_MODEL=llama-3.1-8b-instant
+
+# Sécurité admin (obligatoire en production)
+ADMIN_PASSWORD=change-un-mot-de-passe-fort
+ADMIN_SESSION_TOKEN=genere-un-token-long-et-secret
 ```
 
 Sans clé, le chat fonctionne en mode fallback intelligent.
@@ -36,9 +40,14 @@ Le plus simple: **Vercel** (gratuit)
 1. Push GitHub (déjà fait)
 2. Va sur https://vercel.com/new
 3. Import `hackingfh/devtn-website`
-4. Ajoute les variables d'environnement:
+4. Root Directory (important): `devtn-website`
+5. Ajoute les variables d'environnement:
    - `GROQ_API_KEY`
    - `GROQ_MODEL` (optionnel)
-5. Deploy
+   - `ADMIN_PASSWORD`
+   - `ADMIN_SESSION_TOKEN`
+6. Deploy
+
+Admin login: `/admin/login`
 
 Tu obtiens un lien public utilisable depuis téléphone, même PC éteint.
