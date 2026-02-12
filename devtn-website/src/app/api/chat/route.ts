@@ -3,16 +3,16 @@ import { AGENTS, dispatchAgent } from "@/lib/agents";
 
 type InputMessage = { role: "client" | "agent"; text: string };
 
-async function askOpenAI(
+async function askGroq(
   userText: string,
   agentSystemPrompt: string,
 ): Promise<string | null> {
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) return null;
 
-  const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
+  const model = process.env.GROQ_MODEL || "llama-3.1-8b-instant";
 
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+  const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
 
     const systemPrompt = `Tu es ${agent.name} (${agent.code}) de DevTN. Mission: ${agent.mission}. Réponds en français, concrètement, en 4 à 8 lignes maximum, orienté action business.`;
 
-    const aiResponse = await askOpenAI(lastClient.text, systemPrompt);
+    const aiResponse = await askGroq(lastClient.text, systemPrompt);
 
     const fallback = `Je suis ${agent.name} (${agent.code}).\nJe prends en charge votre demande et je propose: 1) cadrage rapide, 2) plan d'action, 3) estimation budget/délai, 4) prochain rendez-vous.`;
 
@@ -64,7 +64,7 @@ export async function POST(req: Request) {
         autonomy: agent.autonomy,
       },
       reply: aiResponse || fallback,
-      mode: aiResponse ? "live-ai" : "fallback",
+      mode: aiResponse ? "live-ai-groq" : "fallback",
     });
   } catch {
     return NextResponse.json(
